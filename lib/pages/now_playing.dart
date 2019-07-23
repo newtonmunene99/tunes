@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:audioplayer/audioplayer.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -17,17 +15,13 @@ class NowPlayingPage extends StatefulWidget {
   _NowPlayingPageState createState() => _NowPlayingPageState();
 }
 
-class _NowPlayingPageState extends State<NowPlayingPage>
-    with SingleTickerProviderStateMixin {
-  AnimationController _playAnimation;
+class _NowPlayingPageState extends State<NowPlayingPage> {
   bool playing = false;
   PanelController _panelController;
 
   @override
   void initState() {
     _panelController = PanelController();
-    _playAnimation = AnimationController(
-        vsync: this, value: 0.0, duration: Duration(milliseconds: 200));
 
     super.initState();
   }
