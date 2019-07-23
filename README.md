@@ -8,7 +8,7 @@ _Work in Progress, Super buggy, Not functional enough for use._
 
 | Screenshot   | Screenshot   |
 | ------------ | ------------ |
-| <img src=""> | <img src=""> |
+| <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot1.png"> | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot2.png"> |
 | ------------ | ------------ |
 
 ## Getting Started
