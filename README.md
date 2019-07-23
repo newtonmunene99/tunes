@@ -1,6 +1,6 @@
 # tunes
 
-A Music App build with Flutter
+A Music App build with Flutter and various open-source packages/plugins
 
 _Work in Progress, Super buggy, Not functional enough for use._
 
