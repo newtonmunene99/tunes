@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:logging/logging.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -9,6 +10,7 @@ class AudioService {
   FlutterAudioQuery audioQuery;
   AudioPlayer audioPlayer;
   List<SongInfo> nowplayinglist;
+  final Logger log = new Logger('AudioService');
 
   BehaviorSubject<PaletteGenerator> _colorPaletteController;
   BehaviorSubject<SongInfo> _currentlyPlayingController;
@@ -50,7 +52,7 @@ class AudioService {
     });
 
     audioPlayer.onAudioPositionChanged.listen((onData) {
-      print(onData.inSeconds);
+      log.fine(onData.inSeconds);
     });
   }
 
@@ -78,7 +80,7 @@ class AudioService {
       );
       _colorPaletteController.add(palette);
     } catch (e) {
-      print(e);
+      log.shout(e);
     }
   }
 
