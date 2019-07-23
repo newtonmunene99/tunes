@@ -22,13 +22,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
-  audioplayer:
+  audioplayers:
     dependency: "direct main"
     description:
-      name: audioplayer
+      name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2"
+    version: "0.13.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -155,13 +155,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.9"
-  dart_tags:
-    dependency: "direct main"
-    description:
-      name: dart_tags
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   fixnum:
     dependency: transitive
     description:
@@ -181,13 +174,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1"
-  flutter_file_manager:
-    dependency: "direct main"
-    description:
-      name: flutter_file_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   flutter_page_indicator:
     dependency: transitive
     description:
@@ -207,6 +193,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_vector_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_vector_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   front_end:
     dependency: transitive
     description:
@@ -362,19 +355,19 @@ packages:
     source: hosted
     version: "0.2.0"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0+1"
+    version: "1.1.2"
   pedantic:
     dependency: transitive
     description:
@@ -562,6 +555,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   vector_math:
     dependency: transitive
     description:
