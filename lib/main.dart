@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:tunes/database/database.dart';
@@ -26,6 +27,11 @@ class _TunesAppState extends State<TunesApp> {
     audioService = container.resolve<AudioService>();
 
     audioService.getMusicFiles();
+
+    Logger.root.level = Level.ALL;
+    Logger.root.onRecord.listen((LogRecord rec) {
+      print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    });
 
     super.initState();
   }
