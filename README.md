@@ -11,6 +11,9 @@ _Work in Progress, Super buggy, Not functional enough for use._
 | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot1.png"> | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot2.png"> |
 | ------------ | ------------ |
 
+## Prereq
+1. Flutter >= v1.7.0
+
 ## Getting Started
 
 1. Run `flutter create --androidx .`
