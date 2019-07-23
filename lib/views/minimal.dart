@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:audioplayer/audioplayer.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../services/audio.dart';
@@ -25,7 +25,7 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
   @override
   void initState() {
     _playAnimation = AnimationController(
-        vsync: this, value: 0.0, duration: Duration(milliseconds: 200));
+        vsync: this, value: 0.0, duration: Duration(milliseconds: 100));
 
     super.initState();
   }
@@ -58,13 +58,18 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
                     placeholder: NetworkImage(
                         "https://images.unsplash.com/photo-1500099817043-86d46000d58f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80"),
                     image: FileImage(
-                        File.fromUri(Uri.parse(widget.song.albumArtwork))),
+                      File.fromUri(
+                        Uri.parse(
+                          widget.song.albumArtwork,
+                        ),
+                      ),
+                    ),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(0.0),
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(00.0),
+                  borderRadius: BorderRadius.circular(0.0),
                 ),
                 elevation: 5.0,
               ),
