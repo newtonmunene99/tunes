@@ -10,6 +10,7 @@ _Work in Progress, Super buggy, Not functional enough for use._
 | ------------ | ------------ |
 | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot1.png"> | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot2.png"> |
 | ------------ | ------------ |
+| <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot3.png"> | <img src="https://github.com/newtonmunene99/tunes/blob/master/Screenshot4.png"> |
 
 ## Prereq
 1. Flutter >= v1.7.0
