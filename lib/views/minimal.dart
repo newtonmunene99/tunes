@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../services/audio.dart';
 
 class MinimalNowPlayingPage extends StatefulWidget {
@@ -35,12 +36,8 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.white, Theme.of(context).primaryColor],
-            )),
+          color: Colors.white,
+        ),
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -51,8 +48,19 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.width * 0.9,
-              child: Card(
-                margin: EdgeInsets.all(0),
+              child: AnimatedContainer(
+                duration: Duration(
+                  milliseconds: 200,
+                ),
+                decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Theme.of(context).primaryColor,
+                      blurRadius: 50.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
+                ),
                 child: ClipRRect(
                   child: FadeInImage(
                     placeholder: NetworkImage(
@@ -66,12 +74,8 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
                     ),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.circular(0.0),
+                  borderRadius: BorderRadius.circular(5.0),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                elevation: 5.0,
               ),
             ),
             SizedBox(
@@ -118,44 +122,73 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.repeat),
+                    icon: widget.audioService.repeatState == RepeatState.OFF
+                        ? Icon(Icons.repeat)
+                        : widget.audioService.repeatState == RepeatState.ONE
+                            ? Icon(Icons.repeat_one)
+                            : Icon(
+                                Icons.repeat,
+                                color: Colors.red,
+                              ),
                     alignment: Alignment.center,
-                    onPressed: () {},
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.skip_previous,
-                      size: 50.0,
-                    ),
                     onPressed: () {
-                      widget.audioService.previous();
-                    },
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    icon: AnimatedIcon(
-                      icon: AnimatedIcons.play_pause,
-                      size: 60.0,
-                      progress: _playAnimation,
-                    ),
-                    onPressed: () {
-                      if (widget.audioService.audioPlayer.state ==
-                          AudioPlayerState.PLAYING) {
-                        widget.audioService.pause();
-                        _playAnimation.reverse();
-                      } else if (widget.audioService.audioPlayer.state ==
-                          AudioPlayerState.PAUSED) {
-                        widget.audioService.play(widget.song);
-                        _playAnimation.forward();
+                      if (widget.audioService.repeatState == RepeatState.OFF) {
+                        setState(() {
+                          widget.audioService.repeatState = RepeatState.ON;
+                        });
+                      } else if (widget.audioService.repeatState ==
+                          RepeatState.ON) {
+                        setState(() {
+                          widget.audioService.repeatState = RepeatState.ONE;
+                        });
+                      } else {
+                        setState(() {
+                          widget.audioService.repeatState = RepeatState.OFF;
+                        });
                       }
                     },
                     padding: EdgeInsets.zero,
                   ),
                   IconButton(
                     icon: Icon(
-                      Icons.skip_next,
-                      size: 50.0,
+                      Feather.skip_back,
+                      color: Theme.of(context).primaryColor,
+                      size: 30.0,
+                    ),
+                    onPressed: () {
+                      widget.audioService.previous();
+                    },
+                    padding: EdgeInsets.zero,
+                  ),
+                  StreamBuilder<AudioPlayerState>(
+                    stream:
+                        widget.audioService.audioPlayer.onPlayerStateChanged,
+                    builder: (context, snapshot) {
+                      return IconButton(
+                        icon: Icon(
+                          snapshot.data == AudioPlayerState.PAUSED
+                              ? Feather.play
+                              : Feather.pause,
+                          color: Theme.of(context).primaryColor,
+                          size: 50.0,
+                        ),
+                        onPressed: () {
+                          if (snapshot.data == AudioPlayerState.PAUSED) {
+                            widget.audioService.resume();
+                          } else if (snapshot.data ==
+                              AudioPlayerState.PLAYING) {
+                            widget.audioService.pause();
+                          }
+                        },
+                        padding: EdgeInsets.zero,
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Feather.skip_forward,
+                      color: Theme.of(context).primaryColor,
+                      size: 30.0,
                     ),
                     onPressed: () {
                       widget.audioService.next();
@@ -163,8 +196,25 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
                     padding: EdgeInsets.zero,
                   ),
                   IconButton(
-                    icon: Icon(Icons.shuffle),
-                    onPressed: () {},
+                    icon: Icon(
+                        widget.audioService.shuffleState == ShuffleState.OFF
+                            ? MaterialCommunityIcons.shuffle_disabled
+                            : MaterialCommunityIcons.shuffle),
+                    onPressed: () {
+                      if (widget.audioService.shuffleState ==
+                          ShuffleState.OFF) {
+                        setState(() {
+                          widget.audioService.shuffle();
+                          widget.audioService.shuffleState = ShuffleState.ON;
+                        });
+                      } else if (widget.audioService.shuffleState ==
+                          ShuffleState.ON) {
+                        setState(() {
+                          widget.audioService.unshuffle();
+                          widget.audioService.shuffleState = ShuffleState.OFF;
+                        });
+                      }
+                    },
                     padding: EdgeInsets.zero,
                   )
                 ],
@@ -188,17 +238,29 @@ class _MinimalNowPlayingPageState extends State<MinimalNowPlayingPage>
                       shape: BoxShape.circle,
                     ),
                   ),
-                  Text(
-                    widget.song.album,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16.0,
+                  Expanded(
+                    child: Text(
+                      widget.song.album,
+                      softWrap: false,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Container(
                     child: PopupMenuButton(
                       icon: Icon(Icons.more_horiz),
-                      onSelected: (val) {},
+                      onSelected: (val) async {
+                        if (val == "playlist") {
+                          Navigator.pushNamed(
+                            context,
+                            "/nowplayinglist",
+                          );
+                        }
+                      },
                       itemBuilder: (context) => <PopupMenuEntry>[
                         PopupMenuItem(
                           value: "playlist",
